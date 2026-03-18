@@ -57,8 +57,9 @@ DATABASE_URL = os.getenv(
 )
 
 
-@pytest_asyncio.fixture(scope="session")
+@pytest_asyncio.fixture
 async def pool():
+    """Per-test pool — must match the test's event loop (Python 3.12+ requirement)."""
     p = await asyncpg.create_pool(dsn=DATABASE_URL, min_size=2, max_size=10)
     yield p
     await p.close()
