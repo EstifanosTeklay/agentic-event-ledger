@@ -14,7 +14,12 @@ from __future__ import annotations
 
 import hashlib
 import json
-from datetime import datetime
+from datetime import datetime, timezone
+
+
+def _utcnow() -> datetime:
+    """Timezone-aware UTC now — replaces deprecated datetime.utcnow()."""
+    return datetime.now(timezone.utc)
 from decimal import Decimal
 from enum import Enum
 from typing import Any
@@ -278,7 +283,7 @@ class ApplicationSubmitted(BaseEvent):
     requested_amount_usd: Decimal
     loan_purpose:        str
     submission_channel:  str
-    submitted_at:        datetime = Field(default_factory=datetime.utcnow)
+    submitted_at:        datetime = Field(default_factory=_utcnow)
 
 
 class CreditAnalysisRequested(BaseEvent):
@@ -288,7 +293,7 @@ class CreditAnalysisRequested(BaseEvent):
 
     application_id:    str
     assigned_agent_id: str
-    requested_at:      datetime = Field(default_factory=datetime.utcnow)
+    requested_at:      datetime = Field(default_factory=_utcnow)
     priority:          str = "NORMAL"   # NORMAL | HIGH | URGENT
 
 
@@ -307,7 +312,7 @@ class DecisionGenerated(BaseEvent):
     contributing_agent_sessions: list[str]   # list of AgentSession stream IDs
     decision_basis_summary:   str
     model_versions:           dict[str, str] = Field(default_factory=dict)
-    generated_at:             datetime = Field(default_factory=datetime.utcnow)
+    generated_at:             datetime = Field(default_factory=_utcnow)
 
 
 class HumanReviewCompleted(BaseEvent):
@@ -320,7 +325,7 @@ class HumanReviewCompleted(BaseEvent):
     override:        bool
     final_decision:  Recommendation
     override_reason: str | None = None
-    reviewed_at:     datetime = Field(default_factory=datetime.utcnow)
+    reviewed_at:     datetime = Field(default_factory=_utcnow)
 
     @model_validator(mode="after")
     def override_requires_reason(self) -> "HumanReviewCompleted":
@@ -339,7 +344,7 @@ class ApplicationApproved(BaseEvent):
     interest_rate:     float
     conditions:        list[str] = Field(default_factory=list)
     approved_by:       str       # human_id or "auto"
-    effective_date:    datetime = Field(default_factory=datetime.utcnow)
+    effective_date:    datetime = Field(default_factory=_utcnow)
 
 
 class ApplicationDeclined(BaseEvent):
@@ -351,7 +356,7 @@ class ApplicationDeclined(BaseEvent):
     decline_reasons:             list[str]
     declined_by:                 str
     adverse_action_notice_required: bool = True
-    declined_at:                 datetime = Field(default_factory=datetime.utcnow)
+    declined_at:                 datetime = Field(default_factory=_utcnow)
 
 
 # =============================================================================
@@ -373,7 +378,7 @@ class AgentContextLoaded(BaseEvent):
     event_replay_from_position: int = 0
     context_token_count:     int
     model_version:           str
-    loaded_at:               datetime = Field(default_factory=datetime.utcnow)
+    loaded_at:               datetime = Field(default_factory=_utcnow)
 
 
 class CreditAnalysisCompleted(BaseEvent):
@@ -394,7 +399,7 @@ class CreditAnalysisCompleted(BaseEvent):
     analysis_duration_ms: int
     input_data_hash:      str
     regulatory_basis:     str | None = None
-    completed_at:         datetime = Field(default_factory=datetime.utcnow)
+    completed_at:         datetime = Field(default_factory=_utcnow)
 
 
 class FraudScreeningCompleted(BaseEvent):
@@ -408,7 +413,7 @@ class FraudScreeningCompleted(BaseEvent):
     anomaly_flags:           list[str] = Field(default_factory=list)
     screening_model_version: str
     input_data_hash:         str
-    screened_at:             datetime = Field(default_factory=datetime.utcnow)
+    screened_at:             datetime = Field(default_factory=_utcnow)
 
 
 # =============================================================================
@@ -423,7 +428,7 @@ class ComplianceCheckRequested(BaseEvent):
     application_id:        str
     regulation_set_version: str
     checks_required:       list[str]
-    requested_at:          datetime = Field(default_factory=datetime.utcnow)
+    requested_at:          datetime = Field(default_factory=_utcnow)
 
 
 class ComplianceRulePassed(BaseEvent):
@@ -434,7 +439,7 @@ class ComplianceRulePassed(BaseEvent):
     application_id:        str
     rule_id:               str
     rule_version:          str
-    evaluation_timestamp:  datetime = Field(default_factory=datetime.utcnow)
+    evaluation_timestamp:  datetime = Field(default_factory=_utcnow)
     evidence_hash:         str
 
 
@@ -448,7 +453,7 @@ class ComplianceRuleFailed(BaseEvent):
     rule_version:         str
     failure_reason:       str
     remediation_required: bool = True
-    evaluation_timestamp: datetime = Field(default_factory=datetime.utcnow)
+    evaluation_timestamp: datetime = Field(default_factory=_utcnow)
 
 
 class ComplianceClearanceIssued(BaseEvent):
@@ -462,7 +467,7 @@ class ComplianceClearanceIssued(BaseEvent):
     application_id:        str
     regulation_set_version: str
     checks_passed:         list[str]
-    issued_at:             datetime = Field(default_factory=datetime.utcnow)
+    issued_at:             datetime = Field(default_factory=_utcnow)
     issuing_agent_id:      str
 
 
@@ -480,7 +485,7 @@ class AuditIntegrityCheckRun(BaseEvent):
 
     entity_id:            str
     entity_type:          str
-    check_timestamp:      datetime = Field(default_factory=datetime.utcnow)
+    check_timestamp:      datetime = Field(default_factory=_utcnow)
     events_verified_count: int
     integrity_hash:       str   # sha256(previous_hash + all event hashes)
     previous_hash:        str   # hash from the previous AuditIntegrityCheckRun
@@ -503,7 +508,7 @@ class ApplicationUnderReview(BaseEvent):
 
     application_id: str
     review_reason:  str
-    queued_at:      datetime = Field(default_factory=datetime.utcnow)
+    queued_at:      datetime = Field(default_factory=_utcnow)
 
 
 class AgentSessionClosed(BaseEvent):
@@ -518,7 +523,7 @@ class AgentSessionClosed(BaseEvent):
     agent_id:   str
     session_id: str
     reason:     str   # "completed" | "timeout" | "error" | "superseded"
-    closed_at:  datetime = Field(default_factory=datetime.utcnow)
+    closed_at:  datetime = Field(default_factory=_utcnow)
 
 
 class CreditAnalysisSuperseded(BaseEvent):
@@ -533,7 +538,7 @@ class CreditAnalysisSuperseded(BaseEvent):
     application_id:     str
     original_session_id: str
     override_reason:    str
-    superseded_at:      datetime = Field(default_factory=datetime.utcnow)
+    superseded_at:      datetime = Field(default_factory=_utcnow)
 
 
 # =============================================================================
