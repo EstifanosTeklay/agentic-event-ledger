@@ -349,7 +349,17 @@ async def handle_credit_analysis_completed(
         )
     ]
 
-    # 4. Append (optimistic concurrency on loan stream)
+    # 4a. Append to agent session stream (causal chain record)
+    agent_stream = AgentSessionAggregate.stream_id_for(cmd.agent_id, cmd.session_id)
+    await store.append(
+        stream_id=agent_stream,
+        events=events,
+        expected_version=agent.version,
+        correlation_id=cmd.correlation_id,
+        causation_id=cmd.correlation_id,
+    )
+
+    # 4b. Append to loan stream (state machine advance)
     await store.append(
         stream_id=f"loan-{cmd.application_id}",
         events=events,
@@ -571,19 +581,23 @@ async def handle_generate_decision(
     orchestrator.assert_not_closed()
 
     # Business Rule 6: Causal chain — validate contributing sessions
+    # Load each session stream directly (avoids fragile string parsing of
+    # stream IDs that contain hyphens in the agent_id component).
     known_sessions: set[str] = set()
     for session_stream_id in cmd.contributing_agent_sessions:
-        # Load each contributing session to verify it processed this application
-        parts = session_stream_id.replace("agent-", "", 1).rsplit("-", 1)
-        if len(parts) == 2:
-            try:
-                contributing_agent = await AgentSessionAggregate.load(
-                    store, parts[0], parts[1]
-                )
+        try:
+            events = await store.load_stream(session_stream_id)
+            ctx_event = next(
+                (e for e in events if e.event_type == "AgentContextLoaded"), None
+            )
+            if ctx_event:
+                a_id = ctx_event.payload["agent_id"]
+                s_id = ctx_event.payload["session_id"]
+                contributing_agent = await AgentSessionAggregate.load(store, a_id, s_id)
                 if cmd.application_id in contributing_agent.applications_processed:
                     known_sessions.add(session_stream_id)
-            except Exception:
-                pass  # session not found — will be caught by assert below
+        except Exception:
+            pass  # stream not found — caught by assert below
 
     app.assert_valid_contributing_sessions(cmd.contributing_agent_sessions, known_sessions)
 
