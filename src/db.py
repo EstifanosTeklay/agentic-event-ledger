@@ -23,9 +23,7 @@ class Settings(BaseSettings):
     projection_batch_size: int = 500
     projection_max_retries: int = 3
 
-    class Config:
-        env_file = ".env"
-        extra = "ignore"
+    model_config = {"env_file": ".env", "extra": "ignore"}
 
 
 @lru_cache
