@@ -43,9 +43,15 @@ DATABASE_URL = os.getenv(
 )
 
 
-@pytest_asyncio.fixture(scope="session")
+@pytest_asyncio.fixture
 async def pool():
-    """Shared connection pool for the test session."""
+    """
+    Per-test connection pool.
+    Scope is function (default) so the pool is created inside the same
+    asyncio event loop that the test runs in. A session-scoped pool would
+    be created in the session loop and then reused in per-test loops,
+    causing 'Future attached to a different loop' errors on Python 3.12+.
+    """
     p = await asyncpg.create_pool(dsn=DATABASE_URL, min_size=2, max_size=10)
     yield p
     await p.close()
