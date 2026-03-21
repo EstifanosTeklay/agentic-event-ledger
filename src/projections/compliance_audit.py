@@ -20,6 +20,7 @@ SLO: lag < 2000ms
 from __future__ import annotations
 
 import json
+from datetime import datetime, timezone
 import logging
 from datetime import datetime
 from typing import TYPE_CHECKING, Any
@@ -32,6 +33,21 @@ if TYPE_CHECKING:
     from src.models.events import StoredEvent
 
 logger = logging.getLogger(__name__)
+
+def _parse_dt(value) -> datetime | None:
+    """Parse datetime from payload — asyncpg requires datetime objects, not strings."""
+    if value is None:
+        return None
+    if isinstance(value, datetime):
+        return value
+    try:
+        dt = datetime.fromisoformat(str(value))
+        if dt.tzinfo is None:
+            dt = dt.replace(tzinfo=timezone.utc)
+        return dt
+    except (ValueError, TypeError):
+        return None
+
 
 SUBSCRIBED_EVENTS = {
     "ComplianceCheckRequested",
@@ -127,7 +143,7 @@ class ComplianceAuditViewProjection(Projection):
             p["rule_id"],
             p["rule_version"],
             p.get("evidence_hash"),
-            p.get("evaluation_timestamp"),
+            _parse_dt(p.get("evaluation_timestamp")),
             event.global_position,
             event.recorded_at,
         )
@@ -156,7 +172,7 @@ class ComplianceAuditViewProjection(Projection):
             p["rule_version"],
             p.get("failure_reason"),
             p.get("remediation_required", True),
-            p.get("evaluation_timestamp"),
+            _parse_dt(p.get("evaluation_timestamp")),
             event.global_position,
             event.recorded_at,
         )
