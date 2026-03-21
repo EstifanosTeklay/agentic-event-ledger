@@ -2,7 +2,7 @@
 
 **Project:** TRP1 Week 5 — Agentic Event Store & Enterprise Audit Infrastructure  
 **Scenario:** Apex Financial Services — Multi-Agent Commercial Loan Processing  
-**Author:** TRP1 Candidate  
+**Author:** Estifanos Teklay
 **Date:** 2026-03-18
 
 ---
@@ -11,7 +11,7 @@
 
 ### Is LangChain-style callback tracing EDA or ES?
 
-LangChain's callback system — and any component that fires trace events via hooks — is **Event-Driven Architecture (EDA)**, not Event Sourcing (ES). The distinction is precise and consequential:
+LangChain's callback system: and any component that fires trace events via hooks — is **Event-Driven Architecture (EDA)**, not Event Sourcing (ES). The distinction is precise and consequential:
 
 | Dimension | EDA (LangChain callbacks) | Event Sourcing (The Ledger) |
 |---|---|---|
