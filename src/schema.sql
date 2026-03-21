@@ -266,6 +266,7 @@ CREATE TABLE IF NOT EXISTS agent_performance_ledger (
     human_override_rate     NUMERIC(5, 4),
     first_seen_at           TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     last_seen_at            TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    updated_at              TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     PRIMARY KEY (agent_id, model_version)
 );
 
@@ -357,3 +358,7 @@ ALTER TABLE compliance_audit_view
 ALTER TABLE compliance_audit_view
     ADD CONSTRAINT uq_compliance_audit_app_rule_pos
     UNIQUE (application_id, rule_id, event_global_position);
+
+-- Migration: add updated_at to agent_performance_ledger (missing from initial schema)
+ALTER TABLE agent_performance_ledger
+    ADD COLUMN IF NOT EXISTS updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW();
