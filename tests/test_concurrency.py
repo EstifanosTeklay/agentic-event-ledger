@@ -225,10 +225,18 @@ async def test_double_decision_exactly_one_wins(store: EventStore, pool):
     assert error_dict["actual_version"] == 4
     assert error_dict["suggested_action"] == "reload_stream_and_retry"
 
-    print(f"\n✓ Double-decision test passed:")
-    print(f"  Winner: {list(successes.keys())[0]} → version {winning_version}")
-    print(f"  Loser:  {list(errors.keys())[0]} → {error_dict['error_type']}")
-    print(f"  Stream length: {len(events)} events (correct — not 5)")
+    print(f"\n{'='*60}")
+    print(f"  DOUBLE-DECISION CONCURRENCY TEST — ALL ASSERTIONS PASSED")
+    print(f"{'='*60}")
+    print(f"  Winner : {list(successes.keys())[0]} → appended at stream_position=4 ✓")
+    print(f"  Loser  : {list(errors.keys())[0]} → OptimisticConcurrencyError raised ✓")
+    print(f"  ASSERTION (a): stream length = {len(events)} (expected 4, NOT 5) ✓")
+    print(f"  ASSERTION (b): winning stream_position = {winning_version} (expected 4) ✓")
+    print(f"  ASSERTION (c): OptimisticConcurrencyError explicitly raised, not swallowed ✓")
+    print(f"  Error fields : stream={error_dict['stream_id']}")
+    print(f"                 expected_version={error_dict['expected_version']}")
+    print(f"                 actual_version={error_dict['actual_version']}")
+    print(f"{'='*60}")
 
 
 @pytest.mark.asyncio
