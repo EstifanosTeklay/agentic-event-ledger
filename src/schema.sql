@@ -349,3 +349,11 @@ CREATE TABLE IF NOT EXISTS schema_migrations (
 INSERT INTO schema_migrations (version, description)
 VALUES ('001', 'Initial schema: events, event_streams, projection_checkpoints, outbox, projections, notify trigger')
 ON CONFLICT (version) DO NOTHING;
+
+-- Additional unique constraint for ComplianceAuditView upsert logic
+-- Added post-initial-schema to support ON CONFLICT in projection handlers
+ALTER TABLE compliance_audit_view
+    DROP CONSTRAINT IF EXISTS uq_compliance_audit_app_rule_pos;
+ALTER TABLE compliance_audit_view
+    ADD CONSTRAINT uq_compliance_audit_app_rule_pos
+    UNIQUE (application_id, rule_id, event_global_position);
