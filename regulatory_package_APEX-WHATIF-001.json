@@ -1,0 +1,576 @@
+{
+  "package_type": "RegulatoryExaminationPackage",
+  "schema_version": "1.0",
+  "application_id": "APEX-WHATIF-001",
+  "examination_date": "2026-03-22T12:25:15.678806+00:00",
+  "generated_at": "2026-03-22T12:25:15.678983+00:00",
+  "generated_by": "The Ledger \u2014 Agentic Event Store",
+  "section_1_event_stream": {
+    "description": "Complete immutable event stream for this application. Events are in chronological order. payload_hash enables independent verification of each event's integrity.",
+    "total_events": 13,
+    "events": [
+      {
+        "event_id": "dfffd894-8f7b-4839-bb52-b55c93b5b60e",
+        "stream_id": "loan-APEX-WHATIF-001",
+        "stream_position": 1,
+        "global_position": 2,
+        "event_type": "ApplicationSubmitted",
+        "event_version": 1,
+        "payload": {
+          "applicant_id": "apex-whatif-borrower",
+          "loan_purpose": "Commercial property purchase",
+          "submitted_at": "2026-03-22 12:25:15.468294+00:00",
+          "application_id": "APEX-WHATIF-001",
+          "submission_channel": "broker",
+          "requested_amount_usd": "800000.0"
+        },
+        "metadata": {
+          "correlation_id": "corr-1b69a972-5975-4528-a715-3237e5c4b1c0",
+          "schema_version": 1
+        },
+        "recorded_at": "2026-03-22T12:25:15.469200+00:00",
+        "payload_hash": "c5ea9df9f83086531f9ada3e789b7999f468f7614a1c0257a72cf7fe4ab631fc"
+      },
+      {
+        "event_id": "59f33805-5569-4186-a6d6-c1730c4334c0",
+        "stream_id": "loan-APEX-WHATIF-001",
+        "stream_position": 2,
+        "global_position": 3,
+        "event_type": "CreditAnalysisRequested",
+        "event_version": 1,
+        "payload": {
+          "priority": "HIGH",
+          "requested_at": "2026-03-22 12:25:15.477614+00:00",
+          "application_id": "APEX-WHATIF-001",
+          "assigned_agent_id": "agent-credit-whatif-001"
+        },
+        "metadata": {
+          "correlation_id": "corr-32dfa439-fcf8-43c1-9b06-bea4697b13b1",
+          "schema_version": 1
+        },
+        "recorded_at": "2026-03-22T12:25:15.482354+00:00",
+        "payload_hash": "53656a6aa3140b9ff0d5d373167271b7302d62eeab730e0c39c0475d2a8acf4c"
+      },
+      {
+        "event_id": "c9ade286-84f4-4022-b270-1f1a10c70191",
+        "stream_id": "loan-APEX-WHATIF-001",
+        "stream_position": 3,
+        "global_position": 5,
+        "event_type": "CreditAnalysisCompleted",
+        "event_version": 2,
+        "payload": {
+          "agent_id": "agent-credit-whatif-001",
+          "risk_tier": "MEDIUM",
+          "session_id": "sess-whatif-001",
+          "completed_at": "2026-03-22 12:25:15.493929+00:00",
+          "model_version": "credit-v2.1",
+          "application_id": "APEX-WHATIF-001",
+          "input_data_hash": "05d993c8d9420a45a4d14277c11998963c7d97e7eb3f624c6817b6252b87f252",
+          "confidence_score": 0.85,
+          "regulatory_basis": null,
+          "analysis_duration_ms": 1200,
+          "recommended_limit_usd": "760000.0"
+        },
+        "metadata": {
+          "causation_id": "corr-7eac3396-019b-414e-b083-89002db19efb",
+          "correlation_id": "corr-7eac3396-019b-414e-b083-89002db19efb",
+          "schema_version": 2
+        },
+        "recorded_at": "2026-03-22T12:25:15.498475+00:00",
+        "payload_hash": "c71ea3801201bf7fd8f9aebd39cc0a84739ade151ebd54b7a5bb176675bea734"
+      },
+      {
+        "event_id": "c03fcbe5-3546-4d32-b5fe-306d640757c1",
+        "stream_id": "loan-APEX-WHATIF-001",
+        "stream_position": 4,
+        "global_position": 7,
+        "event_type": "FraudScreeningCompleted",
+        "event_version": 1,
+        "payload": {
+          "agent_id": "agent-credit-whatif-001",
+          "fraud_score": 0.08,
+          "screened_at": "2026-03-22 12:25:15.504622+00:00",
+          "anomaly_flags": [],
+          "application_id": "APEX-WHATIF-001",
+          "input_data_hash": "92fc1393ef5afd5e93885b49e742aadb6b40e2c1e877dcf8ea3a61995e503184",
+          "screening_model_version": "fraud-v3.1"
+        },
+        "metadata": {
+          "correlation_id": "corr-8836ef21-f8ca-413b-b45c-82ff8828dfe0",
+          "schema_version": 1
+        },
+        "recorded_at": "2026-03-22T12:25:15.510165+00:00",
+        "payload_hash": "10d1670e714161990fd7fbb9f45ea808916dbb4447c46016be8fae93915f7fe7"
+      },
+      {
+        "event_id": "9d1e9088-af88-4759-9181-a8ac8db5ee7b",
+        "stream_id": "compliance-APEX-WHATIF-001",
+        "stream_position": 1,
+        "global_position": 8,
+        "event_type": "ComplianceCheckRequested",
+        "event_version": 1,
+        "payload": {
+          "requested_at": "2026-03-22 12:25:15.515297+00:00",
+          "application_id": "APEX-WHATIF-001",
+          "checks_required": [
+            "AML-001",
+            "KYC-001"
+          ],
+          "regulation_set_version": "REG-2026-Q1"
+        },
+        "metadata": {
+          "correlation_id": "corr-fff6d2a3-536f-4128-ad69-bbd16d79659c",
+          "schema_version": 1
+        },
+        "recorded_at": "2026-03-22T12:25:15.519849+00:00",
+        "payload_hash": "3999e36f3c1a68fe0fec1d58fb80a1523dbe73745a36ba77ae46a1eae376ef69"
+      },
+      {
+        "event_id": "53575211-eda0-4dba-acf4-8ae840415c7e",
+        "stream_id": "loan-APEX-WHATIF-001",
+        "stream_position": 5,
+        "global_position": 9,
+        "event_type": "ComplianceCheckRequested",
+        "event_version": 1,
+        "payload": {
+          "requested_at": "2026-03-22 12:25:15.515297+00:00",
+          "application_id": "APEX-WHATIF-001",
+          "checks_required": [
+            "AML-001",
+            "KYC-001"
+          ],
+          "regulation_set_version": "REG-2026-Q1"
+        },
+        "metadata": {
+          "correlation_id": "corr-fff6d2a3-536f-4128-ad69-bbd16d79659c",
+          "schema_version": 1
+        },
+        "recorded_at": "2026-03-22T12:25:15.527297+00:00",
+        "payload_hash": "3999e36f3c1a68fe0fec1d58fb80a1523dbe73745a36ba77ae46a1eae376ef69"
+      },
+      {
+        "event_id": "f5a6d0b2-8539-4867-976a-5548f8da4e83",
+        "stream_id": "compliance-APEX-WHATIF-001",
+        "stream_position": 2,
+        "global_position": 10,
+        "event_type": "ComplianceRulePassed",
+        "event_version": 1,
+        "payload": {
+          "rule_id": "AML-001",
+          "rule_version": "v2.1",
+          "evidence_hash": "2a1d303eba97bce4aeab10fdf0e07aaa8ec6fb52aae7b41c87a0433d516dc4cf",
+          "application_id": "APEX-WHATIF-001",
+          "evaluation_timestamp": "2026-03-22 12:25:15.533196+00:00"
+        },
+        "metadata": {
+          "correlation_id": "corr-e07b97a8-2eba-4685-a5a6-4a1b276f595b",
+          "schema_version": 1
+        },
+        "recorded_at": "2026-03-22T12:25:15.537017+00:00",
+        "payload_hash": "04fbdaa4ace559cc6371889a3d41680645bb1b32edc3cf48eeac2402c84ef00a"
+      },
+      {
+        "event_id": "f769da6c-75a7-45f4-8cbc-19a2eee5d483",
+        "stream_id": "compliance-APEX-WHATIF-001",
+        "stream_position": 3,
+        "global_position": 11,
+        "event_type": "ComplianceRulePassed",
+        "event_version": 1,
+        "payload": {
+          "rule_id": "KYC-001",
+          "rule_version": "v1.8",
+          "evidence_hash": "b85f07ff8461cb9245f93a4a332341d5366a9d10d36b76cd1e7640473feb46f6",
+          "application_id": "APEX-WHATIF-001",
+          "evaluation_timestamp": "2026-03-22 12:25:15.540925+00:00"
+        },
+        "metadata": {
+          "correlation_id": "corr-63b2c15c-caad-4f73-9313-d0a2ca5018ec",
+          "schema_version": 1
+        },
+        "recorded_at": "2026-03-22T12:25:15.542056+00:00",
+        "payload_hash": "c9178da8e19fdcf9ee3dc8c7284cbb040c63a324b9984008aa268d19aa9f4498"
+      },
+      {
+        "event_id": "8fc7b7f0-00a5-4e6b-ba9d-69520dbb99c6",
+        "stream_id": "compliance-APEX-WHATIF-001",
+        "stream_position": 4,
+        "global_position": 12,
+        "event_type": "ComplianceClearanceIssued",
+        "event_version": 1,
+        "payload": {
+          "issued_at": "2026-03-22 12:25:15.546062+00:00",
+          "checks_passed": [
+            "AML-001",
+            "KYC-001"
+          ],
+          "application_id": "APEX-WHATIF-001",
+          "issuing_agent_id": "agent-compliance-001",
+          "regulation_set_version": "REG-2026-Q1"
+        },
+        "metadata": {
+          "correlation_id": "corr-f6ff1535-ef9d-403d-b444-14c492c582f1",
+          "schema_version": 1
+        },
+        "recorded_at": "2026-03-22T12:25:15.546877+00:00",
+        "payload_hash": "c08147985b65dab90c47baf77e8e3c67a7a99301888537223ef67904ef2494c6"
+      },
+      {
+        "event_id": "fb9a7d37-6ae8-43a8-a792-b2b6e386b9ff",
+        "stream_id": "loan-APEX-WHATIF-001",
+        "stream_position": 6,
+        "global_position": 13,
+        "event_type": "ComplianceClearanceIssued",
+        "event_version": 1,
+        "payload": {
+          "issued_at": "2026-03-22 12:25:15.546062+00:00",
+          "checks_passed": [
+            "AML-001",
+            "KYC-001"
+          ],
+          "application_id": "APEX-WHATIF-001",
+          "issuing_agent_id": "agent-compliance-001",
+          "regulation_set_version": "REG-2026-Q1"
+        },
+        "metadata": {
+          "correlation_id": "corr-f6ff1535-ef9d-403d-b444-14c492c582f1",
+          "schema_version": 1
+        },
+        "recorded_at": "2026-03-22T12:25:15.559710+00:00",
+        "payload_hash": "c08147985b65dab90c47baf77e8e3c67a7a99301888537223ef67904ef2494c6"
+      },
+      {
+        "event_id": "5c2ae3d4-8cee-4749-b4f9-dcfd27a095f8",
+        "stream_id": "loan-APEX-WHATIF-001",
+        "stream_position": 7,
+        "global_position": 15,
+        "event_type": "DecisionGenerated",
+        "event_version": 2,
+        "payload": {
+          "generated_at": "2026-03-22 12:25:15.568320+00:00",
+          "application_id": "APEX-WHATIF-001",
+          "model_versions": {
+            "orchestrator": "orch-v1.0"
+          },
+          "recommendation": "APPROVE",
+          "confidence_score": 0.85,
+          "orchestrator_agent_id": "agent-orch-whatif-001",
+          "decision_basis_summary": "MEDIUM risk, acceptable financials",
+          "contributing_agent_sessions": [
+            "agent-agent-credit-whatif-001-sess-whatif-001"
+          ]
+        },
+        "metadata": {
+          "correlation_id": "corr-db871ba1-3b5f-4c08-a41f-510c6839b498",
+          "schema_version": 2
+        },
+        "recorded_at": "2026-03-22T12:25:15.568731+00:00",
+        "payload_hash": "75a6fe133759f623b13ac38f3179182bed0a94d10d6a8e0fec9a0e9d80d51201"
+      },
+      {
+        "event_id": "d32c89db-640b-4b9b-86fb-7bf0ade80dfd",
+        "stream_id": "loan-APEX-WHATIF-001",
+        "stream_position": 8,
+        "global_position": 16,
+        "event_type": "HumanReviewCompleted",
+        "event_version": 1,
+        "payload": {
+          "override": false,
+          "reviewed_at": "2026-03-22 12:25:15.571245+00:00",
+          "reviewer_id": "officer-001",
+          "application_id": "APEX-WHATIF-001",
+          "final_decision": "APPROVE",
+          "override_reason": null
+        },
+        "metadata": {
+          "correlation_id": "corr-936f0de7-7bdc-4c87-b98e-0c9c84b54e63",
+          "schema_version": 1
+        },
+        "recorded_at": "2026-03-22T12:25:15.572311+00:00",
+        "payload_hash": "bef84241125122938e062808178d600847719ecfaa159b808517a7aa300a0c80"
+      },
+      {
+        "event_id": "4c9e6af3-248f-4de7-a894-7c6d992eaade",
+        "stream_id": "loan-APEX-WHATIF-001",
+        "stream_position": 9,
+        "global_position": 17,
+        "event_type": "ApplicationApproved",
+        "event_version": 1,
+        "payload": {
+          "conditions": [],
+          "approved_by": "officer-001",
+          "interest_rate": 0.0,
+          "application_id": "APEX-WHATIF-001",
+          "effective_date": "2026-03-22 12:25:15.571270+00:00",
+          "approved_amount_usd": "760000.0"
+        },
+        "metadata": {
+          "correlation_id": "corr-936f0de7-7bdc-4c87-b98e-0c9c84b54e63",
+          "schema_version": 1
+        },
+        "recorded_at": "2026-03-22T12:25:15.574127+00:00",
+        "payload_hash": "cd3fdb85c284d1be1dabb2fa8e7aaba5a93479e854eccc150bef48e44dd2c345"
+      }
+    ]
+  },
+  "section_2_projection_states": {
+    "description": "State of read-model projections as they existed at examination_date. Derived from section_1_event_stream by replaying events up to examination_date.",
+    "projections": {
+      "ApplicationSummary": {
+        "application_id": "APEX-WHATIF-001",
+        "state": "FINAL_APPROVED",
+        "applicant_id": "apex-whatif-borrower",
+        "requested_amount_usd": "800000.00",
+        "approved_amount_usd": "760000.00",
+        "risk_tier": "MEDIUM",
+        "fraud_score": "0.0800",
+        "compliance_status": "PASSED",
+        "decision": "APPROVE",
+        "agent_sessions_completed": "[\"sess-whatif-001\"]",
+        "last_event_type": "ApplicationApproved",
+        "last_event_at": "2026-03-22T12:25:15.574127+00:00",
+        "human_reviewer_id": "officer-001",
+        "final_decision_at": "2026-03-22T12:25:15.574127+00:00",
+        "data_as_of": "2026-03-22T12:25:15.574127+00:00",
+        "created_at": "2026-03-22T12:25:15.593071+00:00",
+        "updated_at": "2026-03-22T12:25:15.670865+00:00"
+      },
+      "ComplianceAuditView": {
+        "as_of": "2026-03-22T12:25:15.678806+00:00",
+        "checks": [
+          {
+            "rule_id": "AML-001",
+            "rule_version": "pending",
+            "regulation_set_version": "REG-2026-Q1",
+            "status": "PENDING",
+            "failure_reason": null,
+            "remediation_required": null,
+            "evidence_hash": null,
+            "evaluation_timestamp": null,
+            "recorded_at": "2026-03-22T12:25:15.519849+00:00"
+          },
+          {
+            "rule_id": "KYC-001",
+            "rule_version": "pending",
+            "regulation_set_version": "REG-2026-Q1",
+            "status": "PENDING",
+            "failure_reason": null,
+            "remediation_required": null,
+            "evidence_hash": null,
+            "evaluation_timestamp": null,
+            "recorded_at": "2026-03-22T12:25:15.519849+00:00"
+          },
+          {
+            "rule_id": "AML-001",
+            "rule_version": "pending",
+            "regulation_set_version": "REG-2026-Q1",
+            "status": "PENDING",
+            "failure_reason": null,
+            "remediation_required": null,
+            "evidence_hash": null,
+            "evaluation_timestamp": null,
+            "recorded_at": "2026-03-22T12:25:15.527297+00:00"
+          },
+          {
+            "rule_id": "KYC-001",
+            "rule_version": "pending",
+            "regulation_set_version": "REG-2026-Q1",
+            "status": "PENDING",
+            "failure_reason": null,
+            "remediation_required": null,
+            "evidence_hash": null,
+            "evaluation_timestamp": null,
+            "recorded_at": "2026-03-22T12:25:15.527297+00:00"
+          },
+          {
+            "rule_id": "AML-001",
+            "rule_version": "v2.1",
+            "regulation_set_version": null,
+            "status": "PASSED",
+            "failure_reason": null,
+            "remediation_required": null,
+            "evidence_hash": "2a1d303eba97bce4aeab10fdf0e07aaa8ec6fb52aae7b41c87a0433d516dc4cf",
+            "evaluation_timestamp": "2026-03-22T12:25:15.533196+00:00",
+            "recorded_at": "2026-03-22T12:25:15.537017+00:00"
+          },
+          {
+            "rule_id": "KYC-001",
+            "rule_version": "v1.8",
+            "regulation_set_version": null,
+            "status": "PASSED",
+            "failure_reason": null,
+            "remediation_required": null,
+            "evidence_hash": "b85f07ff8461cb9245f93a4a332341d5366a9d10d36b76cd1e7640473feb46f6",
+            "evaluation_timestamp": "2026-03-22T12:25:15.540925+00:00",
+            "recorded_at": "2026-03-22T12:25:15.542056+00:00"
+          },
+          {
+            "rule_id": "__CLEARANCE__",
+            "rule_version": "REG-2026-Q1",
+            "regulation_set_version": null,
+            "status": "PASSED",
+            "failure_reason": null,
+            "remediation_required": null,
+            "evidence_hash": null,
+            "evaluation_timestamp": null,
+            "recorded_at": "2026-03-22T12:25:15.546877+00:00"
+          },
+          {
+            "rule_id": "__CLEARANCE__",
+            "rule_version": "REG-2026-Q1",
+            "regulation_set_version": null,
+            "status": "PASSED",
+            "failure_reason": null,
+            "remediation_required": null,
+            "evidence_hash": null,
+            "evaluation_timestamp": null,
+            "recorded_at": "2026-03-22T12:25:15.559710+00:00"
+          }
+        ]
+      }
+    }
+  },
+  "section_3_integrity": {
+    "description": "Cryptographic audit chain verification. Chain is built by hashing all event payloads in sequence. Any modification to any event payload breaks the chain.",
+    "events_verified": 9,
+    "chain_valid": true,
+    "tamper_detected": false,
+    "integrity_hash": "de4f9fed9ef4c646da09e2f9df2245641b2615ca51e35c5b30f71dd93b44eaf5",
+    "previous_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+    "check_timestamp": "2026-03-22T12:25:15.695259+00:00",
+    "verification_method": "SHA-256 hash chain: each check hashes all event payloads since the previous check, combined with the previous integrity hash. Recompute: sha256(previous_hash + sha256(payload_1) + sha256(payload_2) + ...)",
+    "independent_verification": "To verify independently: compute sha256 of each event's payload (sorted JSON, keys alphabetical), concatenate with previous_hash, compute sha256 of the result. Compare with integrity_hash above."
+  },
+  "section_4_narrative": {
+    "description": "Human-readable lifecycle summary. One entry per significant event.",
+    "entries": [
+      {
+        "timestamp": "2026-03-22T12:25:15.469200+00:00",
+        "event_type": "ApplicationSubmitted",
+        "stream": "loan-APEX-WHATIF-001",
+        "summary": "Application submitted by apex-whatif-borrower for $800000.0 via broker."
+      },
+      {
+        "timestamp": "2026-03-22T12:25:15.482354+00:00",
+        "event_type": "CreditAnalysisRequested",
+        "stream": "loan-APEX-WHATIF-001",
+        "summary": "Credit analysis assigned to agent agent-credit-whatif-001 with priority HIGH."
+      },
+      {
+        "timestamp": "2026-03-22T12:25:15.498475+00:00",
+        "event_type": "CreditAnalysisCompleted",
+        "stream": "loan-APEX-WHATIF-001",
+        "summary": "Credit analysis completed by agent agent-credit-whatif-001 using model credit-v2.1: risk=MEDIUM, recommended_limit=$760000.0, confidence=0.85, input_hash=05d993c8d9420a45..."
+      },
+      {
+        "timestamp": "2026-03-22T12:25:15.510165+00:00",
+        "event_type": "FraudScreeningCompleted",
+        "stream": "loan-APEX-WHATIF-001",
+        "summary": "Fraud screening by agent agent-credit-whatif-001: score=0.08, anomaly_flags=[], model=fraud-v3.1."
+      },
+      {
+        "timestamp": "2026-03-22T12:25:15.519849+00:00",
+        "event_type": "ComplianceCheckRequested",
+        "stream": "compliance-APEX-WHATIF-001",
+        "summary": "Compliance checking initiated under REG-2026-Q1: required checks=['AML-001', 'KYC-001']."
+      },
+      {
+        "timestamp": "2026-03-22T12:25:15.527297+00:00",
+        "event_type": "ComplianceCheckRequested",
+        "stream": "loan-APEX-WHATIF-001",
+        "summary": "Compliance checking initiated under REG-2026-Q1: required checks=['AML-001', 'KYC-001']."
+      },
+      {
+        "timestamp": "2026-03-22T12:25:15.537017+00:00",
+        "event_type": "ComplianceRulePassed",
+        "stream": "compliance-APEX-WHATIF-001",
+        "summary": "Compliance rule AML-001 vv2.1 passed."
+      },
+      {
+        "timestamp": "2026-03-22T12:25:15.542056+00:00",
+        "event_type": "ComplianceRulePassed",
+        "stream": "compliance-APEX-WHATIF-001",
+        "summary": "Compliance rule KYC-001 vv1.8 passed."
+      },
+      {
+        "timestamp": "2026-03-22T12:25:15.546877+00:00",
+        "event_type": "ComplianceClearanceIssued",
+        "stream": "compliance-APEX-WHATIF-001",
+        "summary": "Compliance clearance issued under REG-2026-Q1 covering ['AML-001', 'KYC-001']."
+      },
+      {
+        "timestamp": "2026-03-22T12:25:15.559710+00:00",
+        "event_type": "ComplianceClearanceIssued",
+        "stream": "loan-APEX-WHATIF-001",
+        "summary": "Compliance clearance issued under REG-2026-Q1 covering ['AML-001', 'KYC-001']."
+      },
+      {
+        "timestamp": "2026-03-22T12:25:15.568731+00:00",
+        "event_type": "DecisionGenerated",
+        "stream": "loan-APEX-WHATIF-001",
+        "summary": "AI recommendation generated by orchestrator agent-orch-whatif-001: APPROVE (confidence=0.85). Contributing sessions: ['agent-agent-credit-whatif-001-sess-whatif-001']."
+      },
+      {
+        "timestamp": "2026-03-22T12:25:15.572311+00:00",
+        "event_type": "HumanReviewCompleted",
+        "stream": "loan-APEX-WHATIF-001",
+        "summary": "Human review by officer-001: APPROVE. Override: False."
+      },
+      {
+        "timestamp": "2026-03-22T12:25:15.574127+00:00",
+        "event_type": "ApplicationApproved",
+        "stream": "loan-APEX-WHATIF-001",
+        "summary": "Application APPROVED for $760000.0 by officer-001 effective 2026-03-22 12:25:15.571270+00:00."
+      }
+    ]
+  },
+  "section_5_ai_agent_metadata": {
+    "description": "Model versions, confidence scores, and input data hashes for every AI agent that participated in this decision.",
+    "agents": [
+      {
+        "agent_id": "agent-credit-whatif-001",
+        "session_id": "sess-whatif-001",
+        "model_version": "credit-v2.1",
+        "actions": [
+          {
+            "event_type": "CreditAnalysisCompleted",
+            "recorded_at": "2026-03-22T12:25:15.498475+00:00",
+            "confidence_score": 0.85,
+            "input_data_hash": "05d993c8d9420a45a4d14277c11998963c7d97e7eb3f624c6817b6252b87f252"
+          },
+          {
+            "event_type": "FraudScreeningCompleted",
+            "recorded_at": "2026-03-22T12:25:15.510165+00:00",
+            "input_data_hash": "92fc1393ef5afd5e93885b49e742aadb6b40e2c1e877dcf8ea3a61995e503184"
+          }
+        ],
+        "confidence_scores": [
+          0.85
+        ],
+        "input_data_hashes": [
+          "05d993c8d9420a45a4d14277c11998963c7d97e7eb3f624c6817b6252b87f252",
+          "92fc1393ef5afd5e93885b49e742aadb6b40e2c1e877dcf8ea3a61995e503184"
+        ]
+      },
+      {
+        "agent_id": "agent-orch-whatif-001",
+        "session_id": null,
+        "model_version": null,
+        "actions": [
+          {
+            "event_type": "DecisionGenerated",
+            "recorded_at": "2026-03-22T12:25:15.568731+00:00",
+            "confidence_score": 0.85
+          }
+        ],
+        "confidence_scores": [
+          0.85
+        ],
+        "input_data_hashes": [],
+        "model_versions_used": {
+          "orchestrator": "orch-v1.0"
+        }
+      }
+    ]
+  },
+  "package_hash": "fa0cde24ae0ed5f3531fad94fd0e7cb773bbf8d356e0ad1e623957b71425942f"
+}
